@@ -1,31 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguloglu <fguloglu@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/14 21:22:22 by fguloglu          #+#    #+#             */
-/*   Updated: 2026/08/14 21:23:15 by fguloglu         ###   ########.fr       */
+/*   Created: 2026/08/17 00:53:11 by fguloglu          #+#    #+#             */
+/*   Updated: 2026/08/17 01:30:21 by fguloglu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static size_t	get_len(long n)
+{
+	size_t	len;
+
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n != 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
 {
 	char	*str;
-	size_t	len1;
-	size_t	len2;
+	size_t	len;
+	long	num;
 
-	if (!s1 || !s2)
-		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	num = n;
+	len = get_len(num);
+	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	ft_strlcpy(str, s1, len1 + 1);
-	ft_strlcat(str, s2, len1 + len2 + 1);
+	str[len] = '\0';
+	if (num == 0)
+		str[0] = '0';
+	if (num < 0)
+	{
+		str[0] = '-';
+		num = -num;
+	}
+	while (num > 0)
+	{
+		len--;
+		str[len] = (num % 10) + '0';
+		num = num / 10;
+	}
 	return (str);
 }

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguloglu <fguloglu@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/14 21:22:22 by fguloglu          #+#    #+#             */
-/*   Updated: 2026/08/14 21:23:15 by fguloglu         ###   ########.fr       */
+/*   Created: 2026/08/16 14:21:35 by fguloglu          #+#    #+#             */
+/*   Updated: 2026/08/16 17:23:46 by fguloglu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	size_t	len1;
-	size_t	len2;
+#include "libft.h"
 
-	if (!s1 || !s2)
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	start;
+	size_t	end;
+
+	if (!s1 || !set)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, s1, len1 + 1);
-	ft_strlcat(str, s2, len1 + len2 + 1);
-	return (str);
+	start = 0;
+	while (s1[start] && ft_strchr(set, s1[start]))
+		start++;
+	end = ft_strlen(s1);
+	while (end > start && ft_strchr(set, s1[end - 1]))
+		end--;
+	return (ft_substr(s1, start, end - start));
 }
