@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguloglu <fguloglu@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/16 14:21:35 by fguloglu          #+#    #+#             */
-/*   Updated: 2026/08/17 19:03:47 by fguloglu         ###   ########.fr       */
+/*   Created: 2026/08/18 21:39:13 by fguloglu          #+#    #+#             */
+/*   Updated: 2026/08/20 14:58:47 by fguloglu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+t_list	*ft_lstnew(void *content)
 {
-	size_t	start;
-	size_t	end;
+	t_list	*new_node;
 
-	if (!s1 || !set)
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
 		return (NULL);
-	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	end = ft_strlen(s1);
-	while (end > start && ft_strchr(set, s1[end - 1]))
-		end--;
-	return (ft_substr(s1, start, end - start));
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }
